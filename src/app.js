@@ -1,5 +1,49 @@
 import * as bootstrap from 'bootstrap'
 
+const firebaseConfig = {
+
+
+
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  var todoListDB = firebase.database().ref('todoList')
+
+  document.getElementById('todoForm').addEventListener('submit', submitForm )
+
+  function submitForm(e) {
+      
+      var name1 = getElementVal('topicInput')
+      var email = getElementVal('todoListItem')
+      console.log(name1,email)
+      saveMessages(name1,email)
+    }
+
+const getElementVal = (id) => {
+    return document.getElementById(id).value;
+}
+
+const saveMessages = (name1,email) => {
+    var newContactForm = todoListDB.push()
+
+    newContactForm.set({
+        name1:name1,
+        email:email
+    })
+ }
+
+
+
+
+
+
+
+
+
+
+
+
 
 const form = document.querySelector('form')
 
@@ -46,9 +90,7 @@ form.addEventListener('submit',(e)=>{
     
 })
 
-// function addClass(el,cls){
-//     el.classList.add()
-// }
+
 
 
 

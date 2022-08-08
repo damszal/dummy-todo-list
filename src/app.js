@@ -1,57 +1,60 @@
 import * as bootstrap from 'bootstrap'
 
+const outputStyle = (border='border',marginY='my-2',padding='p-2') => {
+    const style = {
+        border,
+        marginY,
+        padding
+    }   
+    val = Object.values(style).map(e=>e)
+    return val
+}
 
-const form = document.querySelector('form')
 
+const selectedQuery = (selector)=>{
+    return document.querySelector(selector)
+}
+const createElement = (tag) => {
+    return document.createElement(tag)
+}
 
+const transferValue = (formEl,outputEl)=> {
+    return outputEl.innerText = formEl.value
+}
 
-form.addEventListener('submit',(e)=>{
+function saveNote(e) {
     e.preventDefault()
-    const addContainer = document.createElement('div')
-    const topicInput = document.querySelector('#topicInput')
-    const topicOutput = document.createElement('div')
-    const note = document.createElement('div')
-    topicOutput.innerText = topicInput.value
-    console.log(topicOutput.innerText)
-    // changes
-    let a = {
-        border : 'border',
-        marginY: 'my-2',
-        padding: 'p-2'
-    }
+    const addContainer = createElement('div');
+    const topicInput = selectedQuery('#topicInput');
+    const todoListItem = selectedQuery('.todoListItem')
+    const topicOutput = createElement('div');
+    const note = createElement('div');
+    transferValue(topicInput,topicOutput)
+    transferValue(todoListItem,note)
     
-    let val = Object.values(a).map(e=>e)
-    const classes = ['border','p-2','my-2']
-
-    console.log(val)
-    console.log(classes)
-
-    topicOutput.classList.add(...val)
-    // topicOutput.classList.add('border')
-    // topicOutput.classList.add('my-2')
-    // topicOutput.classList.add('p-2')
-
-    //-----END
-    addContainer.append(topicOutput)
-    
-    note.classList.add('border')
-    note.classList.add('my-2')
-    note.classList.add('p-2')
+    topicOutput.classList.add(...outputStyle())
+    addContainer.append(topicOutput)   
+    note.classList.add(...outputStyle())
     addContainer.append(note)
-    note.innerText = form[1].value
     
-    form.after(addContainer)
-    form[1].value = ""
-    form[0].value = ""
-    
-})
+    selectedQuery('form').after(addContainer)
+    selectedQuery('form').reset()
 
-// function addClass(el,cls){
-//     el.classList.add()
+} 
+
+selectedQuery('form').addEventListener('submit',saveNote)
+
+
+
+
+
+// const outputStyle = {
+//     border : 'border',
+//     marginY: 'my-2',
+//     padding: 'p-2'
 // }
 
-
-
+// const val = Object.values(outputStyle).map(e=>e)
 
 
 
